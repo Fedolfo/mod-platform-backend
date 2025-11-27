@@ -2,7 +2,7 @@
 
 Backend da aplicação Design Furniture construído com NestJS, TypeORM e PostgreSQL.
 
-## 🚀 Início Rápido
+## Início Rápido
 
 ### Desenvolvimento Local (sem Docker)
 
@@ -32,7 +32,7 @@ docker-compose up -d
 ```bash
 # Configurar variáveis de ambiente
 cp .env.production.example .env
-# ⚠️ IMPORTANTE: Altere as credenciais no arquivo .env!
+# IMPORTANTE: Altere as credenciais no arquivo .env!
 
 # Usar script helper
 npm run docker:prod
@@ -41,7 +41,7 @@ npm run docker:prod
 docker-compose -f docker-compose.prod.yml up -d --build
 ```
 
-## 📝 Scripts Disponíveis
+## Scripts Disponíveis
 
 ### Desenvolvimento
 
@@ -59,13 +59,13 @@ docker-compose -f docker-compose.prod.yml up -d --build
 - `npm run docker:prod:logs` - Ver logs
 - `npm run docker:prod:build` - Rebuild containers
 
-## 📚 Documentação
+## Documentação
 
 - [DOCKER.md](./DOCKER.md) - Guia completo do Docker
 - [CLEAN_ARCHITECTURE.md](./CLEAN_ARCHITECTURE.md) - Arquitetura do projeto
 - [INJECAO_DEPENDENCIA.md](./INJECAO_DEPENDENCIA.md) - Guia de injeção de dependência
 
-## 🏗️ Estrutura do Projeto
+## Estrutura do Projeto
 
 ```
 src/
@@ -75,7 +75,7 @@ src/
     └── products/        # Módulo de produtos
 ```
 
-## 🔗 Endpoints
+## Endpoints
 
 - `GET /` - Hello World
 - `GET /health` - Health check
@@ -85,14 +85,10 @@ src/
 - `PUT /products/:id` - Atualizar produto
 - `DELETE /products/:id` - Deletar produto
 
-## 🛠️ Tecnologias
+## Tecnologias
 
 - **NestJS** - Framework Node.js
 - **TypeORM** - ORM para TypeScript
 - **PostgreSQL** - Banco de dados
 - **Docker** - Containerização
 - **TypeScript** - Linguagem
-
-## 📄 Licença
-
-UNLICENSED
