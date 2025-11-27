@@ -7,8 +7,8 @@ Quando você coloca apenas a classe no array `providers`, o NestJS automaticamen
 ```typescript
 @Module({
   providers: [
-    ProductsService,        // ✅ NestJS cria automaticamente
-    ProductsRepository,     // ✅ NestJS cria automaticamente
+    ProductsService,        // NestJS cria automaticamente
+    ProductsRepository,     // NestJS cria automaticamente
   ],
 })
 ```
@@ -18,7 +18,7 @@ Quando você coloca apenas a classe no array `providers`, o NestJS automaticamen
 @Injectable()
 export class ProductsService {
   constructor(
-    private readonly productsRepository: ProductsRepository, // ✅ Injeção automática
+    private readonly productsRepository: ProductsRepository, // Injeção automática
   ) {}
 }
 ```
@@ -61,8 +61,8 @@ export const PRODUCTS_SERVICE_TOKEN = 'PRODUCTS_SERVICE';
 @Injectable()
 export class ProductsService {
   constructor(
-    @Inject(PRODUCTS_REPOSITORY_TOKEN)  // ✅ Usa o token
-    private readonly productsRepository: IProductsRepository,  // ✅ Interface
+    @Inject(PRODUCTS_REPOSITORY_TOKEN)  // Usa o token
+    private readonly productsRepository: IProductsRepository,  // Interface
   ) {}
 }
 ```
@@ -108,26 +108,26 @@ const mockRepository = {
 
 ## 4. Quando Usar Cada Abordagem?
 
-### ✅ Use Injeção Automática quando:
+### Use Injeção Automática quando:
 - Você está injetando a classe concreta diretamente
 - Não precisa de flexibilidade para trocar implementações
 - Código mais simples e direto
 
 ```typescript
-// ✅ Simples e direto
+// Simples e direto
 providers: [ProductsService, ProductsRepository]
 
 // No construtor
 constructor(private productsRepository: ProductsRepository) {}
 ```
 
-### ✅ Use `provide` com Token quando:
+### Use `provide` com Token quando:
 - Você quer injetar uma **interface** (abstração)
 - Precisa trocar implementações facilmente (testes, diferentes ambientes)
 - Quer desacoplar o código
 
 ```typescript
-// ✅ Flexível e desacoplado
+// Flexível e desacoplado
 providers: [
   {
     provide: PRODUCTS_REPOSITORY_TOKEN,
