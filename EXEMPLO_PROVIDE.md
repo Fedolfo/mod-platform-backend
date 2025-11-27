@@ -1,18 +1,18 @@
 # Exemplo Prático: Uso de `provide` no NestJS
 
-## ❌ Abordagem Atual (Redundante)
+## Abordagem Atual (Redundante)
 
 ```typescript
 @Module({
   providers: [
-    ProductsService,                    // ✅ Injeção automática
+    ProductsService,                    // Injeção automática
     {
-      provide: ProductsRepository,      // ❌ Redundante! Mesma classe
-      useClass: ProductsRepository,     // ❌ Redundante!
+      provide: ProductsRepository,      // Redundante! Mesma classe
+      useClass: ProductsRepository,     // Redundante!
     },
     {
-      provide: ProductsService,         // ❌ Redundante! Mesma classe
-      useClass: ProductsService,        // ❌ Redundante!
+      provide: ProductsService,         // Redundante! Mesma classe
+      useClass: ProductsService,        // Redundante!
     },
   ],
 })
@@ -22,15 +22,15 @@
 
 ---
 
-## ✅ Abordagem Correta: Opção 1 - Injeção Automática (Mais Simples)
+## Abordagem Correta: Opção 1 - Injeção Automática (Mais Simples)
 
 Quando você injeta a classe concreta diretamente:
 
 ```typescript
 @Module({
   providers: [
-    ProductsService,      // ✅ Basta isso!
-    ProductsRepository,  // ✅ Basta isso!
+    ProductsService,      // Basta isso!
+    ProductsRepository,  // Basta isso!
   ],
 })
 ```
@@ -40,14 +40,14 @@ Quando você injeta a classe concreta diretamente:
 @Injectable()
 export class ProductsService {
   constructor(
-    private readonly productsRepository: ProductsRepository,  // ✅ Funciona!
+    private readonly productsRepository: ProductsRepository,  // Funciona!
   ) {}
 }
 ```
 
 ---
 
-## ✅ Abordagem Correta: Opção 2 - Usando Tokens (Para Interfaces)
+## Abordagem Correta: Opção 2 - Usando Tokens (Para Interfaces)
 
 Quando você quer injetar uma **interface** em vez da classe concreta:
 
@@ -81,15 +81,15 @@ export const PRODUCTS_SERVICE_TOKEN = 'PRODUCTS_SERVICE';
 @Injectable()
 export class ProductsService {
   constructor(
-    @Inject(PRODUCTS_REPOSITORY_TOKEN)  // ✅ Usa o token
-    private readonly productsRepository: IProductsRepository,  // ✅ Interface!
+    @Inject(PRODUCTS_REPOSITORY_TOKEN)  // Usa o token
+    private readonly productsRepository: IProductsRepository,  // Interface!
   ) {}
 }
 ```
 
 ---
 
-## 📊 Comparação Visual
+## Comparação Visual
 
 | Situação | Abordagem | Código |
 |----------|-----------|--------|
@@ -99,12 +99,12 @@ export class ProductsService {
 
 ---
 
-## 🎯 Quando Usar Cada Uma?
+## Quando Usar Cada Uma?
 
 ### Use Injeção Automática quando:
-- ✅ Você injeta a classe concreta diretamente
-- ✅ Não precisa trocar a implementação
-- ✅ Código mais simples
+- Você injeta a classe concreta diretamente
+- Não precisa trocar a implementação
+- Código mais simples
 
 ```typescript
 // Módulo
@@ -115,9 +115,9 @@ constructor(private repo: ProductsRepository) {}  // Classe concreta
 ```
 
 ### Use `provide` com Token quando:
-- ✅ Você quer injetar uma **interface**
-- ✅ Precisa trocar implementação (testes, diferentes ambientes)
-- ✅ Quer desacoplar o código
+- Você quer injetar uma **interface**
+- Precisa trocar implementação (testes, diferentes ambientes)
+- Quer desacoplar o código
 
 ```typescript
 // Módulo
@@ -137,7 +137,7 @@ constructor(
 
 ---
 
-## 🔄 Fluxo de Injeção
+## Fluxo de Injeção
 
 ```
 1. Módulo registra: { provide: TOKEN, useClass: Classe }
