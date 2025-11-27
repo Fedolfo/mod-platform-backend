@@ -1,6 +1,6 @@
 # Clean Architecture - Estrutura do Banco de Dados
 
-## 📁 Estrutura Criada
+## Estrutura Criada
 
 ```
 src/
@@ -20,7 +20,7 @@ src/
             └── product.entity.ts
 ```
 
-## 🎯 Benefícios da Nova Estrutura
+## Benefícios da Nova Estrutura
 
 ### 1. **Separação de Responsabilidades**
 
@@ -45,7 +45,7 @@ src/
 - Fácil mockar configurações
 - Testes isolados por ambiente
 
-## 📝 Como Usar
+## Como Usar
 
 ### 1. Configurar Variáveis de Ambiente
 
@@ -103,7 +103,7 @@ DB_SYNCHRONIZE='true'
 DB_LOGGING='true'
 ```
 
-## 🔄 Fluxo de Configuração
+## Fluxo de Configuração
 
 ```
 1. app.module.ts
@@ -115,12 +115,12 @@ DB_LOGGING='true'
 4. ProductsModule (usa o banco)
 ```
 
-## 📦 Módulos Globais
+## Módulos Globais
 
 - **ConfigModule**: Disponibiliza `ConfigService` em todo o app
 - **DatabaseModule**: Disponibiliza `TypeOrmModule` em todo o app
 
-## 🚀 Próximos Passos
+## Próximos Passos
 
 1. **Migrations**: Adicionar suporte a migrations do TypeORM
 2. **Múltiplos Bancos**: Configurar conexões separadas se necessário
