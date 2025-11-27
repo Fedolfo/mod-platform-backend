@@ -7,11 +7,8 @@ import { ProductsModule } from './modules/products/products.module';
 
 @Module({
   imports: [
-    // Configuração global (variáveis de ambiente)
     ConfigModule,
-    // Configuração do banco de dados
     DatabaseModule,
-    // Módulos de negócio
     ProductsModule,
   ],
   controllers: [AppController],
