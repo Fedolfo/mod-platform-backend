@@ -1,11 +1,11 @@
-# 🐳 Guia Docker - Design Furniture Backend
+# Guia Docker - Design Furniture Backend
 
-## 📋 Pré-requisitos
+## Pré-requisitos
 
 - Docker Desktop instalado (ou Docker Engine + Docker Compose)
 - Portas 3000 e 5433 disponíveis
 
-## 🚀 Desenvolvimento
+## Desenvolvimento
 
 ### 1. Configurar ambiente
 
@@ -52,13 +52,13 @@ docker-compose logs -f postgres
 docker-compose down
 ```
 
-Para remover volumes também (⚠️ apaga dados do banco):
+Para remover volumes também ( apaga dados do banco):
 
 ```bash
 docker-compose down -v
 ```
 
-## 🏭 Produção
+## Produção
 
 ### 1. Configurar variáveis de ambiente
 
@@ -68,7 +68,7 @@ Copie o arquivo de exemplo:
 cp .env.production.example .env
 ```
 
-**⚠️ IMPORTANTE**: Altere as credenciais do banco de dados no arquivo `.env`!
+** IMPORTANTE**: Altere as credenciais do banco de dados no arquivo `.env`!
 
 ### 2. Build e iniciar
 
@@ -94,7 +94,7 @@ docker-compose -f docker-compose.prod.yml logs -f
 docker-compose -f docker-compose.prod.yml down
 ```
 
-## 📝 Comandos Úteis
+## Comandos Úteis
 
 ### Acessar banco de dados
 
@@ -135,7 +135,7 @@ docker-compose -f docker-compose.prod.yml up -d app
 docker-compose down -v --rmi all
 ```
 
-## 🔧 Estrutura dos Arquivos Docker
+## Estrutura dos Arquivos Docker
 
 ### Dockerfile
 
@@ -164,7 +164,7 @@ docker-compose down -v --rmi all
 - Limites de recursos
 - Sem sincronização automática do banco
 
-## 🗄️ Backup do Banco de Dados
+## Backup do Banco de Dados
 
 ### Criar backup
 
@@ -178,7 +178,7 @@ docker-compose exec postgres pg_dump -U postgres-design-furniture design_furnitu
 docker-compose exec -T postgres psql -U postgres-design-furniture design_furniture_dev < backup.sql
 ```
 
-## 🔍 Troubleshooting
+## Troubleshooting
 
 ### Porta já em uso
 
@@ -215,7 +215,7 @@ docker-compose build --no-cache
 docker-compose up -d
 ```
 
-## 📊 Monitoramento
+## Monitoramento
 
 ### Ver uso de recursos
 
@@ -231,7 +231,7 @@ Os containers têm health checks configurados. Verifique o status:
 docker-compose ps
 ```
 
-## 🔐 Segurança em Produção
+## Segurança em Produção
 
 1. **Altere todas as senhas** no arquivo `.env`
 2. **Use secrets** do Docker Swarm ou Kubernetes em produção real
@@ -239,7 +239,7 @@ docker-compose ps
 4. **Use SSL/TLS** para conexões com o banco
 5. **Desabilite DB_SYNCHRONIZE** em produção (use migrations)
 
-## 🚀 Deploy
+## Deploy
 
 ### Build da imagem
 
