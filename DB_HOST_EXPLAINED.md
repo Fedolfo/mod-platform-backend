@@ -1,8 +1,8 @@
 # 🗄️ Entendendo DB_HOST no Docker
 
-## ⚠️ O Problema com `localhost`
+## O Problema com `localhost`
 
-### ❌ Por que `localhost` NÃO funciona:
+### Por que `localhost` NÃO funciona:
 
 Quando você usa `DB_HOST: localhost` dentro de um container Docker:
 
@@ -11,14 +11,14 @@ Quando você usa `DB_HOST: localhost` dentro de um container Docker:
 │  Container: app                 │
 │  DB_HOST: localhost             │
 │  ↓                              │
-│  Tenta conectar a si mesmo! ❌  │
+│  Tenta conectar a si mesmo!     │
 │  (não encontra o PostgreSQL)    │
 └─────────────────────────────────┘
 ```
 
 **`localhost` dentro do container = o próprio container**, não outros containers!
 
-## ✅ Solução: Usar o Nome do Serviço
+## Solução: Usar o Nome do Serviço
 
 ### Como funciona:
 
@@ -31,7 +31,7 @@ Docker cria um **DNS interno** com os nomes dos serviços:
 │  ↓                             │
 │  Docker resolve "postgres"     │
 │  para o IP do container        │
-│  do PostgreSQL ✅              │
+│  do PostgreSQL                 │
 └─────────────────────────────────┘
          ↓
 ┌─────────────────────────────────┐
@@ -40,7 +40,7 @@ Docker cria um **DNS interno** com os nomes dos serviços:
 └─────────────────────────────────┘
 ```
 
-## 📋 Configuração Correta
+## Configuração Correta
 
 ### docker-compose.yml:
 
@@ -55,18 +55,18 @@ services:
 
   app:
     environment:
-      DB_HOST: postgres      # ✅ Nome do serviço (não localhost!)
-      DB_PORT: 5432          # ✅ Porta do container (sempre 5432)
+      DB_HOST: postgres      # Nome do serviço (não localhost!)
+      DB_PORT: 5432          # Porta do container (sempre 5432)
     networks:
       - design-furniture-network
 ```
 
-## 🎯 Quando Usar Cada Um
+## Quando Usar Cada Um
 
 ### 1. **Entre Containers** (Docker Compose):
 ```yaml
-DB_HOST: postgres  # ✅ Nome do serviço
-DB_PORT: 5432      # ✅ Porta do container
+DB_HOST: postgres  # Nome do serviço
+DB_PORT: 5432      # Porta do container
 ```
 
 ### 2. **Do Seu Computador** (fora do Docker):
@@ -79,11 +79,11 @@ psql -h localhost -p 5433 -U postgres-design-furniture
 
 ### 3. **Aplicação rodando FORA do Docker**:
 ```typescript
-DB_HOST: 'localhost'  // ✅ Seu computador
-DB_PORT: 5433         // ✅ Porta do host
+DB_HOST: 'localhost'  // Seu computador
+DB_PORT: 5433         // Porta do host
 ```
 
-## 🔍 Teste Rápido
+## Teste Rápido
 
 ### Verificar se o DNS funciona:
 
@@ -106,7 +106,7 @@ docker-compose exec app sh
 nc -zv postgres 5432
 ```
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Erro: "Connection refused" ou "ECONNREFUSED"
 
@@ -114,10 +114,10 @@ nc -zv postgres 5432
 
 **Solução:**
 ```yaml
-# ❌ ERRADO
+# ERRADO
 DB_HOST: localhost
 
-# ✅ CORRETO
+# CORRETO
 DB_HOST: postgres
 ```
 
@@ -135,7 +135,7 @@ DB_HOST: postgres
 - Use porta `5432` (porta do container)
 - Verifique se o PostgreSQL está rodando: `docker-compose ps`
 
-## 📊 Resumo Visual
+## Resumo Visual
 
 ```
 ┌──────────────────────────────────────────┐
@@ -156,12 +156,12 @@ DB_HOST: postgres
 └──────────────────────────────────────────┘
 ```
 
-## 💡 Regra de Ouro
+## Regra de Ouro
 
 **Dentro do Docker Compose:**
-- ✅ **Sempre use o nome do serviço** para comunicação entre containers
-- ✅ **Sempre use a porta do container** (5432 para PostgreSQL)
-- ❌ **Nunca use `localhost`** para comunicação entre containers
+ **Sempre use o nome do serviço** para comunicação entre containers
+ **Sempre use a porta do container** (5432 para PostgreSQL)
+ **Nunca use `localhost`** para comunicação entre containers
 
 **Fora do Docker:**
 - ✅ Use `localhost` e a porta do host (5433)
