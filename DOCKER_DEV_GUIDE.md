@@ -1,10 +1,10 @@
-# 🚀 Guia de Desenvolvimento com Docker
+# Guia de Desenvolvimento com Docker
 
-## ⚡ Hot-Reload Automático
+## Hot-Reload Automático
 
 Com a configuração atual, **você NÃO precisa fazer build toda vez** que alterar o código!
 
-### ✅ O que atualiza automaticamente (sem rebuild):
+### O que atualiza automaticamente (sem rebuild):
 
 1. **Código TypeScript** (`src/**/*.ts`)
    - Qualquer alteração em controllers, services, entities, etc.
@@ -14,7 +14,7 @@ Com a configuração atual, **você NÃO precisa fazer build toda vez** que alte
 2. **Arquivos de configuração** (tsconfig.json, nest-cli.json)
    - Alterações são refletidas automaticamente
 
-### 🔨 Quando você PRECISA fazer rebuild:
+### Quando você PRECISA fazer rebuild:
 
 1. **Adicionar/remover dependências** (`package.json`)
 
@@ -35,7 +35,7 @@ Com a configuração atual, **você NÃO precisa fazer build toda vez** que alte
    docker-compose up -d --build
    ```
 
-## 📋 Fluxo de Trabalho Recomendado
+## Fluxo de Trabalho Recomendado
 
 ### Primeira vez:
 
@@ -51,7 +51,7 @@ docker-compose up -d --build
 docker-compose up -d
 
 # Desenvolver normalmente - mudanças no código são detectadas automaticamente!
-# Edite arquivos em src/ e veja a mágica acontecer ✨
+# Edite arquivos em src/ e veja a mágica acontecer
 ```
 
 ### Quando adicionar nova dependência:
@@ -67,7 +67,7 @@ docker-compose build app
 docker-compose up -d app
 ```
 
-## 🔍 Como Verificar se Está Funcionando
+## Como Verificar se Está Funcionando
 
 ### 1. Ver logs em tempo real:
 
@@ -90,7 +90,7 @@ Você verá algo assim quando salvar um arquivo:
 4. Veja os logs: `docker-compose logs -f app`
 5. A aplicação deve reiniciar automaticamente!
 
-## 🎯 Comandos Úteis
+## Comandos Úteis
 
 ### Iniciar (primeira vez ou após mudanças em dependências):
 
@@ -129,7 +129,7 @@ docker-compose down
 docker-compose down -v --rmi all
 ```
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Hot-reload não está funcionando?
 
@@ -162,7 +162,7 @@ docker-compose down -v --rmi all
    docker-compose up -d --build app
    ```
 
-## 💡 Dicas
+## Dicas
 
 1. **Mantenha o terminal com logs aberto:**
 
@@ -183,7 +183,7 @@ docker-compose down -v --rmi all
 3. **Cache do npm:**
    O Docker usa cache do npm, então reinstalar dependências é mais rápido.
 
-## 📊 Resumo Visual
+## Resumo Visual
 
 ```
 ┌─────────────────────────────────────────┐
@@ -194,7 +194,7 @@ docker-compose down -v --rmi all
 │  NestJS watch mode recompila             │
 │           ↓                              │
 │  Aplicação reinicia automaticamente      │
-│           ✅ SEM REBUILD NECESSÁRIO!     │
+│              SEM REBUILD NECESSÁRIO!     │
 └─────────────────────────────────────────┘
 
 ┌─────────────────────────────────────────┐
@@ -203,6 +203,6 @@ docker-compose down -v --rmi all
 │  Precisa reinstalar dependências         │
 │           ↓                              │
 │  docker-compose build app                │
-│           ✅ REBUILD NECESSÁRIO!         │
+│              REBUILD NECESSÁRIO!         │
 └─────────────────────────────────────────┘
 ```
