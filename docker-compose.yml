@@ -1,0 +1,73 @@
+services:
+  # Banco de dados PostgreSQL
+  postgres:
+    image: postgres:16-alpine
+    container_name: design-furniture-db-dev
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres-design-furniture
+      POSTGRES_PASSWORD: postgres123
+      POSTGRES_DB: design_furniture_dev
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - '5433:5432' # HOST_PORT:CONTAINER_PORT (PostgreSQL sempre roda na 5432 dentro do container)
+    volumes:
+      - postgres_data_dev:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres-design-furniture']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - design-furniture-network
+
+  # Aplicação NestJS
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+      # Usar cache para builds mais rápidos
+      cache_from:
+        - node:20-alpine
+    container_name: design-furniture-app-dev
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      DB_TYPE: postgres
+      DB_HOST: postgres # Nome do serviço (Docker resolve automaticamente)
+      DB_PORT: 5432 # Porta do container (PostgreSQL sempre usa 5432)
+      DB_USERNAME: postgres-design-furniture
+      DB_PASSWORD: postgres123
+      DB_DATABASE: design_furniture_dev
+      DB_SYNCHRONIZE: 'true'
+      DB_LOGGING: 'true'
+    volumes:
+      # Montar código fonte para hot-reload automático
+      - ./src:/app/src
+      - ./package.json:/app/package.json
+      - ./package-lock.json:/app/package-lock.json
+      - ./tsconfig.json:/app/tsconfig.json
+      - ./tsconfig.build.json:/app/tsconfig.build.json
+      - ./nest-cli.json:/app/nest-cli.json
+      # Excluir node_modules do volume (usar do container)
+      - /app/node_modules
+      # Cache do npm para builds mais rápidos
+      - npm_cache:/root/.npm
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - design-furniture-network
+
+volumes:
+  postgres_data_dev:
+    driver: local
+  npm_cache:
+    driver: local
+
+networks:
+  design-furniture-network:
+    driver: bridge
