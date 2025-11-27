@@ -13,7 +13,6 @@ export const getDatabaseConfig = (
     logging: dbConfig.logging,
   };
 
-  // Configuração para SQLite
   if (dbConfig.type === 'sqlite') {
     return {
       ...baseConfig,
@@ -22,7 +21,6 @@ export const getDatabaseConfig = (
     } as TypeOrmModuleOptions;
   }
 
-  // Configuração para PostgreSQL
   if (dbConfig.type === 'postgres') {
     return {
       ...baseConfig,
@@ -35,7 +33,6 @@ export const getDatabaseConfig = (
     } as TypeOrmModuleOptions;
   }
 
-  // Configuração para MySQL
   if (dbConfig.type === 'mysql') {
     return {
       ...baseConfig,
