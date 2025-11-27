@@ -1,22 +1,22 @@
-# 🔌 Entendendo Portas no Docker Compose
+# Entendendo Portas no Docker Compose
 
-## ⚠️ Problema Comum: Confusão entre Portas
+## Problema Comum: Confusão entre Portas
 
-### ❌ Erro Comum:
+### Erro Comum:
 
 ```yaml
 ports:
   - '5433:5433' # ERRADO!
 ```
 
-### ✅ Correto:
+### Correto:
 
 ```yaml
 ports:
   - '5433:5432' # HOST_PORT:CONTAINER_PORT
 ```
 
-## 📚 Explicação
+## Explicação
 
 ### Formato de Mapeamento de Portas:
 
@@ -43,7 +43,7 @@ postgres:
 - Do seu computador: `localhost:5433` → acessa o PostgreSQL
 - Dentro da rede Docker: `postgres:5432` → acessa o PostgreSQL
 
-## 🔗 Comunicação entre Containers
+## Comunicação entre Containers
 
 ### Dentro da Rede Docker:
 
@@ -61,11 +61,11 @@ services:
 
   app:
     environment:
-      DB_HOST: postgres # ✅ Nome do serviço
-      DB_PORT: 5432 # ✅ Porta do CONTAINER (não 5433!)
+      DB_HOST: postgres # Nome do serviço
+      DB_PORT: 5432 # Porta do CONTAINER (não 5433!)
 ```
 
-## 📋 Resumo Visual
+## Resumo Visual
 
 ```
 ┌─────────────────────────────────────────┐
@@ -80,7 +80,7 @@ services:
 └─────────────────────────────────────────┘
 ```
 
-## ✅ Configuração Correta
+## Configuração Correta
 
 ### docker-compose.yml:
 
@@ -112,7 +112,7 @@ DB_HOST: 'postgres'; // Nome do serviço
 DB_PORT: 5432; // Porta do container
 ```
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Erro: "Connection refused" ou "ECONNREFUSED"
 
@@ -138,7 +138,7 @@ DB_PORT: 5432; // Porta do container
    docker-compose logs app
    ```
 
-## 💡 Dica
+## Dica
 
 **Regra de ouro:**
 
