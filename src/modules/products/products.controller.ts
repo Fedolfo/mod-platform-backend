@@ -9,6 +9,7 @@ import {
   HttpCode,
   HttpStatus,
   Inject,
+  NotFoundException,
 } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -30,16 +31,27 @@ export class ProductsController {
   }
 
   @Get()
-  findAll() {
-    return this.productsService.findAll();
+  @HttpCode(HttpStatus.OK)
+  async findAll() {
+    const products = await this.productsService.findAll();
+    if (products.length === 0) {
+      throw new NotFoundException('Products not found');
+    }
+    return products;
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.productsService.findOne(id);
+  @HttpCode(HttpStatus.OK)
+  async findOne(@Param('id') id: string) {
+    const product = await this.productsService.findOne(id);
+    if (!product) {
+      throw new NotFoundException('Product not found');
+    }
+    return product;
   }
 
   @Put(':id')
+  @HttpCode(HttpStatus.OK)
   update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
     return this.productsService.update(id, updateProductDto);
   }

@@ -1,12 +1,12 @@
-import { Product } from '../entities/product.entity';
 import { CreateProductDto } from '../dto/create-product.dto';
+import { ProductModel } from '../models/products.model';
 
 export interface IProductsRepository {
-  create(createProductDto: CreateProductDto): Product;
-  save(product: Product): Promise<Product>;
+  create(createProductDto: CreateProductDto): ProductModel;
+  save(product: ProductModel): Promise<ProductModel>;
   find(options?: {
     order?: { [key: string]: 'ASC' | 'DESC' };
-  }): Promise<Product[]>;
-  findOne(options: { where: { id: string } }): Promise<Product | null>;
-  remove(product: Product): Promise<Product>;
+  }): Promise<ProductModel[]>;
+  findOne(options: { where: { id: string } }): Promise<ProductModel | null>;
+  remove(product: ProductModel): Promise<ProductModel>;
 }

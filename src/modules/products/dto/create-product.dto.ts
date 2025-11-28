@@ -1,12 +1,7 @@
-import {
-  IsString,
-  IsNotEmpty,
-  IsNumber,
-  IsOptional,
-  IsArray,
-} from 'class-validator';
+import { IsString, IsNotEmpty, IsNumber, IsArray } from 'class-validator';
+import { ProductModel } from '../models/products.model';
 
-export class CreateProductDto {
+export class CreateProductDto implements ProductModel {
   @IsString()
   @IsNotEmpty()
   id: string;
@@ -36,11 +31,10 @@ export class CreateProductDto {
   lead_time: string;
 
   @IsString()
-  @IsOptional()
-  main_image_url?: string;
+  @IsNotEmpty()
+  main_image_url: string;
 
   @IsArray()
   @IsString({ each: true })
-  @IsOptional()
-  gallery_images?: string[];
+  gallery_images: string[];
 }

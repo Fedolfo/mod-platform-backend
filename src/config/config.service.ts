@@ -27,4 +27,13 @@ export class ConfigService {
       nodeEnv: this.configService.get<string>('NODE_ENV', 'development'),
     };
   }
+  get jwt() {
+    return {
+      secret: this.configService.get<string>(
+        'JWT_SECRET',
+        'secret-key-change-in-production-for-jwt',
+      ),
+      expiresIn: this.configService.get<number>('JWT_EXPIRES_IN', 24 * 60 * 60),
+    };
+  }
 }

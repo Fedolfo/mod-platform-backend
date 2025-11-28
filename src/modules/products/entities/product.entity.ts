@@ -1,14 +1,15 @@
 import {
   Entity,
   Column,
-  PrimaryColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
+import { ProductModel } from '../models/products.model';
 
 @Entity('products')
-export class Product {
-  @PrimaryColumn()
+export class Product implements ProductModel {
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
