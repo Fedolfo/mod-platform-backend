@@ -21,14 +21,14 @@ export class Account implements AccountModel {
   @Column()
   name: string;
 
-  @Column()
-  phone: string;
+  @Column({ nullable: true })
+  phone?: string;
 
-  @Column()
-  address: string;
+  @Column({ nullable: true })
+  address?: string;
 
-  @Column()
-  cpfCnpj: string;
+  @Column({ nullable: true })
+  cpfCnpj?: string;
 
   @CreateDateColumn()
   created_at: Date;

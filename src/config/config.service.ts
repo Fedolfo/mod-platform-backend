@@ -36,4 +36,21 @@ export class ConfigService {
       expiresIn: this.configService.get<number>('JWT_EXPIRES_IN', 24 * 60 * 60),
     };
   }
+
+  get cors() {
+    const origin = this.configService.get<string>('CORS_ORIGIN', '*');
+    return {
+      origin: origin === '*' ? '*' : origin.split(','),
+      methods: this.configService
+        .get<string>('CORS_METHODS', 'GET,POST,PUT,DELETE,PATCH,OPTIONS')
+        .split(','),
+      allowedHeaders: this.configService
+        .get<string>(
+          'CORS_ALLOWED_HEADERS',
+          'Content-Type,Authorization,Accept',
+        )
+        .split(','),
+      credentials: this.configService.get<boolean>('CORS_CREDENTIALS', true),
+    };
+  }
 }

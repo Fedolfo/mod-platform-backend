@@ -7,12 +7,7 @@ import { ProductsModule } from './modules/products/products.module';
 import { AccountModule } from './modules/account/account.module';
 
 @Module({
-  imports: [
-    ConfigModule,
-    DatabaseModule,
-    ProductsModule,
-    AccountModule,
-  ],
+  imports: [ConfigModule, DatabaseModule, ProductsModule, AccountModule],
   controllers: [AppController],
   providers: [AppService],
 })

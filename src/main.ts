@@ -1,9 +1,21 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
+import { ConfigService } from './config/config.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  const configService = app.get(ConfigService);
+  const corsConfig = configService.cors as {
+    origin: string | string[];
+    methods: string[];
+    allowedHeaders: string[];
+    credentials: boolean;
+  };
+
+  app.enableCors(corsConfig);
+
   app.useGlobalPipes(
     new ValidationPipe({
       forbidNonWhitelisted: true, // Throw an error if a property is not in the DTO

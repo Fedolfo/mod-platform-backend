@@ -23,11 +23,9 @@ export class AccountRepository implements IAccountRepository {
     return await this.typeOrmRepository.findOne({ where: { email } });
   }
 
-  async create(account: AccountModel): Promise<{ id: string }> {
-    const newAccount = this.typeOrmRepository.create(account);
-    await this.typeOrmRepository.save(newAccount);
-
-    return { id: newAccount.id };
+  async create(account: AccountModel): Promise<{ id: string; email: string }> {
+    const newAccount = await this.typeOrmRepository.save(account);
+    return { id: newAccount.id, email: newAccount.email };
   }
 
   async update(
@@ -42,6 +40,6 @@ export class AccountRepository implements IAccountRepository {
 
     Object.assign(foundAccount, account);
 
-    return await this.typeOrmRepository.save(account);
+    return await this.typeOrmRepository.save(foundAccount);
   }
 }

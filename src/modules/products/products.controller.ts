@@ -16,7 +16,7 @@ import { UpdateProductDto } from './dto/update-product.dto';
 import type { IProductsService } from './interfaces/products-service.interface';
 import { PRODUCTS_SERVICE_TOKEN } from './constants/products.constants';
 
-@Controller('products')
+@Controller('api/v1/products')
 export class ProductsController {
   constructor(
     // Usando token para injetar a interface

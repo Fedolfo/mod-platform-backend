@@ -2,6 +2,7 @@ import { AccountModel } from '../models/account.models';
 
 export interface ILoginResponse {
   token: string;
+  email: string;
 }
 
 export interface IAccountService {

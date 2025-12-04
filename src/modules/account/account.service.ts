@@ -41,6 +41,7 @@ export class AccountService implements IAccountService {
     const token = this.jwtService.sign({ id: account.id });
     return {
       token,
+      email: account.email,
     };
   }
 
@@ -56,6 +57,7 @@ export class AccountService implements IAccountService {
     const token = this.jwtService.sign({ id: account.id });
     return {
       token,
+      email: account.email,
     };
   }
   findOne(id: string): Promise<AccountModel | null> {
