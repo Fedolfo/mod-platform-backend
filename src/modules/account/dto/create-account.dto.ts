@@ -29,6 +29,7 @@ export class CreateAccountDto implements AccountModel {
 
   @IsString()
   @IsNotEmpty()
+  @IsOptional()
   @Matches(/^\d{11}$|^\d{14}$/, {
     // CPF (11) ou CNPJ (14)
     message: 'CPF deve ter 11 dígitos ou CNPJ deve ter 14 dígitos',

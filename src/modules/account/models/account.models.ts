@@ -5,7 +5,7 @@ export class AccountModel {
   name: string;
   phone?: string;
   address?: string;
-  cpfCnpj: string;
+  cpfCnpj?: string;
 
   constructor(data: AccountModel) {
     Object.assign(this, data);

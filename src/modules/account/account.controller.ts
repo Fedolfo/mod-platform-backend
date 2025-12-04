@@ -22,7 +22,7 @@ import { UpdateAccountDto } from './dto/update-account.dto';
 import { LoginAccountDto } from './dto/login-account.dto';
 import { ACCOUNT_SERVICE_TOKEN } from './constants/account.constants';
 
-@Controller('account')
+@Controller('api/v1/account')
 export class AccountController {
   constructor(
     @Inject(ACCOUNT_SERVICE_TOKEN)
