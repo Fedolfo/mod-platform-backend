@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import type {
   IAccountService,
+  ICreateAccountResponse,
   ILoginResponse,
 } from './interfaces/account-service.interface';
 import { CreateAccountDto } from './dto/create-account.dto';
@@ -42,22 +43,33 @@ export class AccountService implements IAccountService {
     return {
       token,
       email: account.email,
+      full_name: account.full_name,
     };
   }
 
-  async create(createAccountDto: CreateAccountDto): Promise<ILoginResponse> {
+  async create(
+    createAccountDto: CreateAccountDto,
+  ): Promise<ICreateAccountResponse> {
     const hashedPassword = await this.bcryptRepository.hash(
       createAccountDto.password,
     );
-    const account = await this.accountRepository.create({
+    const newAccount = await this.accountRepository.create({
       ...createAccountDto,
       password: hashedPassword,
     });
 
-    const token = this.jwtService.sign({ id: account.id });
+    const token = this.jwtService.sign({ id: newAccount.id });
+
+    const account = await this.accountRepository.findOne(newAccount.id);
+
+    if (!account) {
+      throw new NotFoundException('Account not found');
+    }
+
     return {
       token,
       email: account.email,
+      full_name: account.full_name,
     };
   }
   findOne(id: string): Promise<AccountModel | null> {
