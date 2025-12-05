@@ -13,7 +13,7 @@ export class AccountRepository implements IAccountRepository {
   ) {}
 
   async remove(id: string): Promise<void> {
-    await this.typeOrmRepository.delete(id);
+    await this.typeOrmRepository.softDelete(id);
   }
 
   async findOne(id: string): Promise<AccountModel | null> {
