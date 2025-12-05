@@ -21,7 +21,7 @@ export class CreateAccountDto implements AccountModel {
 
   @IsString()
   @IsNotEmpty()
-  name: string;
+  full_name: string;
 
   @IsString()
   @IsOptional()
@@ -34,7 +34,7 @@ export class CreateAccountDto implements AccountModel {
     // CPF (11) ou CNPJ (14)
     message: 'CPF deve ter 11 dígitos ou CNPJ deve ter 14 dígitos',
   })
-  cpfCnpj: string;
+  cpf_cnpj: string;
 
   @IsString()
   @IsOptional()

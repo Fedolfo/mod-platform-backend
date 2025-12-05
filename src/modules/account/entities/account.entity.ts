@@ -19,7 +19,7 @@ export class Account implements AccountModel {
   password: string;
 
   @Column()
-  name: string;
+  full_name: string;
 
   @Column({ nullable: true })
   phone?: string;
@@ -28,7 +28,7 @@ export class Account implements AccountModel {
   address?: string;
 
   @Column({ nullable: true })
-  cpfCnpj?: string;
+  cpf_cnpj?: string;
 
   @CreateDateColumn()
   created_at: Date;

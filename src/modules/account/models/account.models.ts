@@ -2,10 +2,10 @@ export class AccountModel {
   id?: string;
   email: string;
   password: string;
-  name: string;
+  full_name: string;
   phone?: string;
   address?: string;
-  cpfCnpj?: string;
+  cpf_cnpj?: string;
 
   constructor(data: AccountModel) {
     Object.assign(this, data);

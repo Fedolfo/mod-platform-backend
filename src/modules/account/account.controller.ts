@@ -61,7 +61,7 @@ export class AccountController {
     return account;
   }
 
-  @Put(':id')
+  @Put('update/:id')
   @HttpCode(HttpStatus.OK)
   update(
     @Param('id') id: string,
@@ -70,7 +70,7 @@ export class AccountController {
     return this.accountService.update(id, updateAccountDto);
   }
 
-  @Delete(':id')
+  @Delete('delete/:id')
   @HttpCode(HttpStatus.NO_CONTENT)
   remove(@Param('id') id: string): Promise<void> {
     return this.accountService.remove(id);
