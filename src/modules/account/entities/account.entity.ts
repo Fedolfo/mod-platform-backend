@@ -30,6 +30,9 @@ export class Account implements AccountModel {
   @Column({ nullable: true })
   cpf_cnpj?: string;
 
+  @Column({ default: false })
+  is_admin: boolean;
+
   @CreateDateColumn()
   created_at: Date;
 

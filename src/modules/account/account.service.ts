@@ -1,7 +1,7 @@
 import {
+  BadRequestException,
   Inject,
   Injectable,
-  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import type {
@@ -30,29 +30,39 @@ export class AccountService implements IAccountService {
   async login(email: string, password: string): Promise<ILoginResponse> {
     const account = await this.accountRepository.findByEmail(email);
     if (!account) {
-      throw new NotFoundException('Account not found');
+      throw new BadRequestException('Registre o seu email para continuar');
     }
     const isPasswordValid = await this.bcryptRepository.compare(
       password,
       account.password,
     );
     if (!isPasswordValid) {
-      throw new UnauthorizedException('Invalid password');
+      throw new UnauthorizedException('Senha Incorreta');
     }
     const token = this.jwtService.sign({ id: account.id });
     return {
       token,
       email: account.email,
       full_name: account.full_name,
+      is_admin: account.is_admin,
     };
   }
 
   async create(
     createAccountDto: CreateAccountDto,
   ): Promise<ICreateAccountResponse> {
+    const accountAlreadyExists = await this.accountRepository.findByEmail(
+      createAccountDto.email,
+    );
+
+    if (accountAlreadyExists) {
+      throw new BadRequestException('Este email já está cadastrado');
+    }
+
     const hashedPassword = await this.bcryptRepository.hash(
       createAccountDto.password,
     );
+
     const newAccount = await this.accountRepository.create({
       ...createAccountDto,
       password: hashedPassword,
@@ -60,16 +70,10 @@ export class AccountService implements IAccountService {
 
     const token = this.jwtService.sign({ id: newAccount.id });
 
-    const account = await this.accountRepository.findOne(newAccount.id);
-
-    if (!account) {
-      throw new NotFoundException('Account not found');
-    }
-
     return {
       token,
-      email: account.email,
-      full_name: account.full_name,
+      email: newAccount.email,
+      full_name: newAccount.full_name,
     };
   }
   findOne(id: string): Promise<AccountModel | null> {

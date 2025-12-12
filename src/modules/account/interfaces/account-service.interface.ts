@@ -4,6 +4,7 @@ export interface ILoginResponse {
   token: string;
   email: string;
   full_name: string;
+  is_admin?: boolean;
 }
 
 export interface ICreateAccountResponse {

@@ -11,6 +11,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { CreateAccountDto } from './dto/create-account.dto';
 import type {
@@ -40,13 +41,28 @@ export class AccountController {
   async create(
     @Body() createAccountDto: CreateAccountDto,
   ): Promise<ILoginResponse> {
-    const accountAlreadyExists = await this.accountService.findByEmail(
-      createAccountDto.email,
-    );
-    if (accountAlreadyExists) {
-      throw new BadRequestException('Account already exists');
-    }
     return await this.accountService.create(createAccountDto);
+  }
+
+  @Get('profile')
+  @HttpCode(HttpStatus.OK)
+  async getProfile(
+    @Query('email') email: string,
+  ): Promise<Omit<AccountModel, 'password'>> {
+    const account = await this.accountService.findByEmail(email);
+    if (!account) {
+      throw new BadRequestException('Usuário não encontrado');
+    }
+
+    return {
+      id: account.id,
+      email: account.email,
+      full_name: account.full_name,
+      phone: account.phone,
+      address: account.address,
+      cpf_cnpj: account.cpf_cnpj,
+      is_admin: account.is_admin,
+    };
   }
 
   @Get(':id')
