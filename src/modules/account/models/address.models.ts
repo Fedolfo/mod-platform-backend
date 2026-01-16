@@ -1,13 +1,13 @@
 export class AddressModel {
   number: string;
   street: string;
-  accountId: string;
+  account_id: string;
   neighborhood: string;
   city: string;
   state: string;
-  zipCode: string;
+  zip_code: string;
   complement?: string;
-  fullAddress?: string;
+  full_address?: string;
 
   constructor(data: AddressModel) {
     Object.assign(this, data);

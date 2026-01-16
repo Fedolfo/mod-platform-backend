@@ -3,7 +3,7 @@ import { CategoryModel } from '../models/category.model';
 
 export const CreateCategorySchema: z.ZodSchema<CategoryModel> = z.object({
   name: z.string().min(1),
-  imageUrl: z.string(),
+  image_url: z.string(),
   status: z.enum(['active', 'inactive']).default('active'),
 });
 

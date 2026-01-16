@@ -15,8 +15,8 @@ export class ProductsRepository implements IProductsRepository {
   create(createProductDto: CreateProductDto): Product {
     return this.typeOrmRepository.create({
       ...createProductDto,
-      mainImageUrl: createProductDto.mainImageUrl || '',
-      galleryImages: createProductDto.galleryImages || [],
+      main_image_url: createProductDto.main_image_url || '',
+      gallery_images: createProductDto.gallery_images || [],
     });
   }
 

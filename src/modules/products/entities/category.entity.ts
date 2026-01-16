@@ -18,12 +18,12 @@ export class Category implements CategoryModel {
   name: string;
 
   @Column({ nullable: true })
-  imageUrl: string;
+  image_url: string;
 
   @Column({ default: 'active' })
   status: 'active' | 'inactive';
 
-  @OneToMany(() => Product, (product) => product.categoryId)
+  @OneToMany(() => Product, (product) => product.category_id)
   products: Product[];
 
   @CreateDateColumn()

@@ -17,7 +17,7 @@ export class Product implements ProductModel {
 
   @ManyToOne(() => Category, (category) => category.id)
   @JoinColumn({ name: 'categoryId' })
-  categoryId: string;
+  category_id: string;
 
   @Column()
   name: string;
@@ -29,22 +29,22 @@ export class Product implements ProductModel {
   price: number;
 
   @Column('decimal', { precision: 10, scale: 2, default: 0 })
-  originalPrice: number;
+  original_price: number;
 
   @Column({ type: 'decimal', precision: 10, scale: 2, default: 0 })
-  discountPercent: number;
+  discount_percent: number;
 
   @Column({ default: '' })
   dimensions: string;
 
   @Column({ default: '' })
-  leadTime: string;
+  lead_time: string;
 
   @Column({ default: '' })
-  mainImageUrl: string;
+  main_image_url: string;
 
   @Column('simple-array', { default: '' })
-  galleryImages: string[];
+  gallery_images: string[];
 
   @Column({ default: 'active' })
   status: 'active' | 'inactive';
