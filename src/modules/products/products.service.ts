@@ -17,8 +17,8 @@ export class ProductsService implements IProductsService {
   async create(createProductDto: CreateProductDto): Promise<ProductModel> {
     const product = this.productsRepository.create({
       ...createProductDto,
-      main_image_url: createProductDto.main_image_url || '',
-      gallery_images: createProductDto.gallery_images || [],
+      mainImageUrl: createProductDto.mainImageUrl || '',
+      galleryImages: createProductDto.galleryImages || [],
     });
     return await this.productsRepository.save(product);
   }

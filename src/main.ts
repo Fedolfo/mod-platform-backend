@@ -1,7 +1,8 @@
 import { NestFactory } from '@nestjs/core';
-import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { ConfigService } from './config/config.service';
+import { ZodValidationPipe } from 'nestjs-zod';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -16,13 +17,15 @@ async function bootstrap() {
 
   app.enableCors(corsConfig);
 
-  app.useGlobalPipes(
-    new ValidationPipe({
-      forbidNonWhitelisted: true, // Throw an error if a property is not in the DTO
-      transform: true, // Transform the payload to the DTO type
-      whitelist: true, // Remove properties that are not in the DTO
-    }),
-  );
+  const config = new DocumentBuilder()
+    .setTitle('Products API')
+    .setVersion('1.0')
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('docs', app, document);
+
+  app.useGlobalPipes(new ZodValidationPipe());
   await app.listen(process.env.PORT ?? 3000);
   console.log(`Server is running on port ${process.env.PORT ?? 3000}`);
 }
