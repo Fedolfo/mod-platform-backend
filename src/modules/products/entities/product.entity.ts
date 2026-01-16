@@ -4,16 +4,20 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 import { ProductModel } from '../models/products.model';
+import { Category } from './category.entity';
 
 @Entity('products')
 export class Product implements ProductModel {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
-  category_id: string;
+  @ManyToOne(() => Category, (category) => category.id)
+  @JoinColumn({ name: 'categoryId' })
+  categoryId: string;
 
   @Column()
   name: string;
@@ -21,24 +25,36 @@ export class Product implements ProductModel {
   @Column('text')
   description: string;
 
-  @Column('decimal', { precision: 10, scale: 2 })
+  @Column('decimal', { precision: 10, scale: 2, default: 0 })
   price: number;
 
-  @Column()
-  dimensions: string;
+  @Column('decimal', { precision: 10, scale: 2, default: 0 })
+  originalPrice: number;
 
-  @Column()
-  lead_time: string;
+  @Column({ type: 'decimal', precision: 10, scale: 2, default: 0 })
+  discountPercent: number;
 
   @Column({ default: '' })
-  main_image_url: string;
+  dimensions: string;
+
+  @Column({ default: '' })
+  leadTime: string;
+
+  @Column({ default: '' })
+  mainImageUrl: string;
 
   @Column('simple-array', { default: '' })
-  gallery_images: string[];
+  galleryImages: string[];
+
+  @Column({ default: 'active' })
+  status: 'active' | 'inactive';
+
+  @Column({ default: 0 })
+  rating: number;
 
   @CreateDateColumn()
-  created_at: Date;
+  createdAt: Date;
 
   @UpdateDateColumn()
-  updated_at: Date;
+  updatedAt: Date;
 }

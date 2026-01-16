@@ -1,6 +1,7 @@
 export class AddressModel {
   number: string;
   street: string;
+  accountId: string;
   neighborhood: string;
   city: string;
   state: string;
