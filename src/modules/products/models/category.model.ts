@@ -1,7 +1,7 @@
 export class CategoryModel {
   id?: string;
   name: string;
-  imageUrl: string;
+  image_url: string;
   status: 'active' | 'inactive';
 
   constructor(data: CategoryModel) {
