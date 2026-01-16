@@ -17,14 +17,15 @@ async function bootstrap() {
 
   app.enableCors(corsConfig);
 
-  const config = new DocumentBuilder()
-    .setTitle('Products API')
-    .setVersion('1.0')
-    .build();
+  if (configService.app.nodeEnv === 'development') {
+    const config = new DocumentBuilder()
+      .setTitle('Products API')
+      .setVersion('1.0')
+      .build();
 
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('docs', app, document);
-
+    const document = SwaggerModule.createDocument(app, config);
+    SwaggerModule.setup('docs', app, document);
+  }
   app.useGlobalPipes(new ZodValidationPipe());
   await app.listen(process.env.PORT ?? 3000);
   console.log(`Server is running on port ${process.env.PORT ?? 3000}`);
