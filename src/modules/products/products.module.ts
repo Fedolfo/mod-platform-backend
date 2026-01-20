@@ -2,13 +2,13 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductsService } from './products.service';
 import { ProductsController } from './products.controller';
-import { Product } from './entities/product.entity';
+import { ProductEntity } from './entities/product.entity';
 import { ProductsRepository } from './repositories/products.repository';
 import {
   PRODUCTS_REPOSITORY_TOKEN,
   PRODUCTS_SERVICE_TOKEN,
 } from './constants/products.constants';
-import { Category } from './entities/category.entity';
+import { CategoryEntity } from './entities/category.entity';
 import { CategoriesService } from './services/categories.service';
 import { CategoriesController } from './controllers/categories.controller';
 import { CategoriesRepository } from './repositories/categories.repository';
@@ -18,7 +18,7 @@ import {
 } from './constants/categories.constants';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Product, Category])],
+  imports: [TypeOrmModule.forFeature([ProductEntity, CategoryEntity])],
   controllers: [ProductsController, CategoriesController],
   providers: [
     // Products

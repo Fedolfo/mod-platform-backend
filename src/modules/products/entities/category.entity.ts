@@ -6,11 +6,11 @@ import {
   PrimaryGeneratedColumn,
   OneToMany,
 } from 'typeorm';
-import { Product } from './product.entity';
+import { ProductEntity } from './product.entity';
 import { CategoryModel } from '../models/category.model';
 
 @Entity('categories')
-export class Category implements CategoryModel {
+export class CategoryEntity implements CategoryModel {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -23,8 +23,8 @@ export class Category implements CategoryModel {
   @Column({ default: 'active' })
   status: 'active' | 'inactive';
 
-  @OneToMany(() => Product, (product) => product.category_id)
-  products: Product[];
+  @OneToMany(() => ProductEntity, (product) => product.category_id)
+  products: ProductEntity[];
 
   @CreateDateColumn()
   createdAt: Date;

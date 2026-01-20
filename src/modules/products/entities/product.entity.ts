@@ -8,14 +8,14 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { ProductModel } from '../models/products.model';
-import { Category } from './category.entity';
+import { CategoryEntity } from './category.entity';
 
 @Entity('products')
-export class Product implements ProductModel {
+export class ProductEntity implements ProductModel {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(() => Category, (category) => category.id)
+  @ManyToOne(() => CategoryEntity, (category) => category.id)
   @JoinColumn({ name: 'categoryId' })
   category_id: string;
 
