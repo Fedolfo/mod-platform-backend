@@ -97,27 +97,21 @@ export class CartService implements ICartService {
 
     const cart = await this.getCartWithItems(userId);
 
-    const existingItem = await this.cartRepository.findCartItemByProduct(
+    const item = await this.cartRepository.findCartItemByProduct(
       cart.id,
       addItemDto.productId,
     );
 
-    if (existingItem && existingItem.id) {
-      const updatedItem: CartItemsModel = {
-        cart_id: existingItem.cart_id,
-        product_id: existingItem.product_id,
-        quantity: existingItem.quantity + addItemDto.quantity,
-        unitPriceSnapshot: existingItem.unitPriceSnapshot,
-      };
-      await this.cartRepository.saveCartItemWithTransaction(updatedItem);
-    } else {
-      await this.cartRepository.saveCartItemWithTransaction({
-        cart_id: cart.id,
-        product_id: addItemDto.productId,
-        quantity: addItemDto.quantity,
-        unitPriceSnapshot: addItemDto.unitPriceSnapshot ?? undefined,
-      });
+    if (item) {
+      throw new BadRequestException('Produto já existe no carrinho');
     }
+
+    await this.cartRepository.saveCartItemWithTransaction({
+      cart_id: cart.id,
+      product_id: addItemDto.productId,
+      quantity: addItemDto.quantity,
+      unitPriceSnapshot: addItemDto.unitPriceSnapshot ?? undefined,
+    });
 
     // Retorna o carrinho atualizado (otimizado: busca apenas uma vez)
     const updatedCart = await this.cartRepository.findById(cart.id, true);
@@ -149,7 +143,7 @@ export class CartService implements ICartService {
       quantity: updateItemDto.quantity,
       unitPriceSnapshot: item.unitPriceSnapshot ?? undefined,
     };
-    await this.cartRepository.saveCartItemWithTransaction(updatedItem);
+    await this.cartRepository.updateCartItemWithTransaction(updatedItem);
 
     // Retorna o carrinho atualizado (otimizado)
     const updatedCart = await this.cartRepository.findById(cart.id, true);

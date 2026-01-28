@@ -118,6 +118,31 @@ export class CartRepository implements ICartRepository {
     }
   }
 
+  async updateCartItemWithTransaction(item: CartItemsModel): Promise<void> {
+    const queryRunner = this.dataSource.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+
+    try {
+      const cartItem = await this.findCartItemByProduct(
+        item.cart_id,
+        item.product_id,
+      );
+
+      if (cartItem) {
+        cartItem.quantity = item.quantity;
+        cartItem.unitPriceSnapshot = item.unitPriceSnapshot;
+        await queryRunner.manager.save(cartItem);
+        await queryRunner.commitTransaction();
+      }
+    } catch (error) {
+      await queryRunner.rollbackTransaction();
+      throw error;
+    } finally {
+      await queryRunner.release();
+    }
+  }
+
   async removeCartItemWithTransaction(itemId: string): Promise<void> {
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();

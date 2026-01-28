@@ -25,5 +25,6 @@ export interface ICartRepository {
   removeAllCartItems(cartId: string): Promise<void>;
   // Métodos transacionais
   saveCartItemWithTransaction(item: CartItemsModel): Promise<CartItemsModel>;
+  updateCartItemWithTransaction(item: CartItemsModel): Promise<void>;
   removeCartItemWithTransaction(itemId: string): Promise<void>;
 }

@@ -11,7 +11,7 @@ export const CreateProductSchema: z.ZodSchema<ProductModel> = z.object({
   main_image_url: z.string(),
   gallery_images: z.array(z.string()),
   original_price: z.number().positive(),
-  discount_percent: z.number().positive(),
+  discount_percent: z.number().nonnegative(),
   rating: z.number().positive(),
   status: z.enum(['active', 'inactive']),
 });

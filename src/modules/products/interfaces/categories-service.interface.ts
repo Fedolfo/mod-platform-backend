@@ -6,6 +6,9 @@ export interface ICategoriesService {
   create(createCategoryDto: CreateCategoryDto): Promise<CategoryModel>;
   findAll(): Promise<CategoryModel[]>;
   findOne(id: string): Promise<CategoryModel>;
-  update(id: string, updateCategoryDto: UpdateCategoryDto): Promise<CategoryModel>;
+  update(
+    id: string,
+    updateCategoryDto: UpdateCategoryDto,
+  ): Promise<CategoryModel>;
   remove(id: string): Promise<void>;
 }
